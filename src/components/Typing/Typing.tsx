@@ -1,10 +1,10 @@
 import React from 'react';
 import { Bubble } from '../Bubble';
 
-export function Typing(props: { custom?: React.ReactNode }) {
+export function Typing(props: { custom?: React.ReactNode | string }) {
   return (
     <Bubble type="typing">
-      {props.custom || <div className="Typing" aria-busy="true">
+      {props.custom ?? <div className="Typing" aria-busy="true">
         <div className="Typing-dot" />
         <div className="Typing-dot" />
         <div className="Typing-dot" />

@@ -1,7 +1,7 @@
 {
-  "name": "@chatui/core",
-  "version": "2.4.8-beta.0",
-  "description": "The React library for Chatbot UI",
+  "name": "custom-chatui",
+  "version": "2.4.8-beta.1",
+  "description": "Custom chat UI based on chatUI(fork ChatUI)",
   "main": "lib/index.js",
   "module": "es/index.js",
   "browser": "dist/index.js",
@@ -100,14 +100,6 @@
     "chat",
     "chat-ui"
   ],
-  "homepage": "https://chatui.io/",
-  "bugs": {
-    "url": "https://github.com/alibaba/ChatUI/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/alibaba/ChatUI"
-  },
-  "author": "akai <akainice@gmail.com>",
+  "author": "",
   "license": "MIT"
 }
