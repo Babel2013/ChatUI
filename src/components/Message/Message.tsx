@@ -52,10 +52,14 @@ export interface MessageProps {
    * 消息内容渲染函数
    */
   renderMessageContent?: (message: MessageProps) => React.ReactNode;
+  /**
+   * 自定义Typing内容
+   */
+  customTyping?: () => React.ReactNode;
 }
 
 const Message = (props: MessageProps) => {
-  const { renderMessageContent = () => null, ...msg } = props;
+  const { renderMessageContent = () => null, customTyping = () => null, ...msg } = props;
   const { type, content, user = {}, _id: id, position = 'left', hasTime = true, createdAt } = msg;
   const { name, avatar } = user;
 
@@ -77,7 +81,7 @@ const Message = (props: MessageProps) => {
         <div className="Message-inner">
           {isRL && name && <div className="Message-author">{name}</div>}
           <div className="Message-content" role="alert" aria-live="assertive" aria-atomic="false">
-            {type === 'typing' ? <Typing /> : renderMessageContent(msg)}
+            {type === 'typing' ? <Typing custom={customTyping}/> : renderMessageContent(msg)}
           </div>
         </div>
       </div>

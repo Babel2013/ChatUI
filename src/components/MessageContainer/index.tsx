@@ -13,6 +13,8 @@ export interface MessageContainerProps {
   messages: MessageProps[];
   renderMessageContent: (message: MessageProps) => React.ReactNode;
   isTyping?: boolean;
+  customTyping?: () => React.ReactNode;
+  needShowBackBottom?: boolean;
   loadMoreText?: string;
   onRefresh?: () => Promise<any>;
   onScroll?: (event: React.UIEvent<HTMLDivElement, UIEvent>) => void;
@@ -43,6 +45,8 @@ export const MessageContainer = React.forwardRef<MessageContainerHandle, Message
       renderMessageContent,
       onBackBottomShow,
       onBackBottomClick,
+      customTyping,
+      needShowBackBottom = true
     } = props;
 
     const [showBackBottom, setShowBackBottom] = useState(false);
@@ -94,7 +98,7 @@ export const MessageContainer = React.forwardRef<MessageContainerHandle, Message
           }
         } else {
           // 3屏+显示回到底部
-          setShowBackBottom(true);
+          setShowBackBottom(needShowBackBottom);
         }
       }),
     );
@@ -131,9 +135,9 @@ export const MessageContainer = React.forwardRef<MessageContainerHandle, Message
         scrollToEnd({ animated, force: true });
       } else {
         setNewCount((c) => c + 1);
-        setShowBackBottom(true);
+        setShowBackBottom(needShowBackBottom);
       }
-    }, [lastMessage, scrollToEnd]);
+    }, [lastMessage, scrollToEnd, needShowBackBottom]);
 
     useEffect(() => {
       scrollToEnd();
@@ -193,7 +197,7 @@ export const MessageContainer = React.forwardRef<MessageContainerHandle, Message
             {messages.map((msg) => (
               <Message {...msg} renderMessageContent={renderMessageContent} key={msg._id} />
             ))}
-            {isTyping && <Message type="typing" _id="typing" />}
+            {isTyping && <Message type="typing" _id="typing" customTyping={customTyping}/>}
           </div>
         </PullToRefresh>
         {showBackBottom && (
